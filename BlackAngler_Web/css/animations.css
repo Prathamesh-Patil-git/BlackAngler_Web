@@ -1,244 +1,89 @@
 /* ========================================
-   BlackAngler Custom Animations
+   BlackAngler - Smooth Scroll Animations
+   Every element animates on scroll
    ======================================== */
 
-/* --- Keyframe Definitions --- */
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* --- Base transition for all animated elements --- */
+.ba-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.ba-scroll.ba-in {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1) rotate(0deg);
 }
 
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+/* --- Direction Variants --- */
+.ba-scroll.ba-up {
+  transform: translateY(40px);
 }
 
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.ba-scroll.ba-down {
+  transform: translateY(-40px);
 }
 
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.85);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.ba-scroll.ba-left {
+  transform: translateX(-50px);
 }
 
-@keyframes slideInUp {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.ba-scroll.ba-right {
+  transform: translateX(50px);
 }
 
+.ba-scroll.ba-scale {
+  transform: scale(0.88);
+}
+
+.ba-scroll.ba-rotate {
+  transform: rotate(-3deg) translateY(20px);
+}
+
+/* --- Stagger Delays (auto-applied by JS) --- */
+.ba-d1 { transition-delay: 0.05s; }
+.ba-d2 { transition-delay: 0.1s; }
+.ba-d3 { transition-delay: 0.15s; }
+.ba-d4 { transition-delay: 0.2s; }
+.ba-d5 { transition-delay: 0.25s; }
+.ba-d6 { transition-delay: 0.3s; }
+.ba-d7 { transition-delay: 0.35s; }
+.ba-d8 { transition-delay: 0.4s; }
+.ba-d9 { transition-delay: 0.45s; }
+.ba-d10 { transition-delay: 0.5s; }
+.ba-d11 { transition-delay: 0.55s; }
+.ba-d12 { transition-delay: 0.6s; }
+
+/* --- Speed Variants --- */
+.ba-fast {
+  transition-duration: 0.4s;
+}
+
+.ba-slow {
+  transition-duration: 1s;
+}
+
+/* --- Keyframes --- */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+/* --- Hover Micro-Interactions --- */
 
-@keyframes rotateIn {
-  from {
-    opacity: 0;
-    transform: rotate(-10deg) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
-}
-
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* --- Scroll-Triggered Animation Classes --- */
-
-.ba-animate {
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.ba-animate.ba-visible {
-  opacity: 1;
-}
-
-.ba-fade-up {
-  opacity: 0;
-  transform: translateY(40px);
-}
-.ba-fade-up.ba-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.ba-fade-down {
-  opacity: 0;
-  transform: translateY(-40px);
-}
-.ba-fade-down.ba-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.ba-fade-left {
-  opacity: 0;
-  transform: translateX(-50px);
-}
-.ba-fade-left.ba-visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.ba-fade-right {
-  opacity: 0;
-  transform: translateX(50px);
-}
-.ba-fade-right.ba-visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.ba-scale-in {
-  opacity: 0;
-  transform: scale(0.85);
-}
-.ba-scale-in.ba-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Stagger delays */
-.ba-delay-1 { transition-delay: 0.1s !important; }
-.ba-delay-2 { transition-delay: 0.2s !important; }
-.ba-delay-3 { transition-delay: 0.3s !important; }
-.ba-delay-4 { transition-delay: 0.4s !important; }
-.ba-delay-5 { transition-delay: 0.5s !important; }
-.ba-delay-6 { transition-delay: 0.6s !important; }
-
-/* --- Hover Effects --- */
-
-/* Card lift effect */
-.ba-hover-lift {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
-}
-.ba-hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-}
-
-/* Image zoom on hover */
-.ba-hover-zoom {
-  overflow: hidden;
-}
-.ba-hover-zoom img {
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.ba-hover-zoom:hover img {
-  transform: scale(1.08);
-}
-
-/* Glow effect */
-.ba-hover-glow {
-  transition: box-shadow 0.4s ease;
-}
-.ba-hover-glow:hover {
-  box-shadow: 0 0 25px rgba(99, 102, 241, 0.3), 0 0 50px rgba(99, 102, 241, 0.1);
-}
-
-/* --- Enhanced Existing Elements --- */
-
-/* Smooth header transition */
-header {
-  transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
-}
-
-/* Navigation links */
+/* Navigation links - underline slide */
 .at-main-menu nav ul li a {
   position: relative;
   transition: color 0.3s ease;
@@ -257,42 +102,43 @@ header {
   width: 100%;
 }
 
-/* Button hover animations */
+/* Buttons - lift + shadow */
 .at-btn {
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, background-color 0.3s ease !important;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease !important;
 }
 .at-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 .at-btn:active {
   transform: translateY(0);
 }
 
-/* Portfolio/Gallery items */
-.at-portfolio-item,
-.at-gallery-item,
-.sec-2-home-5__avatar-sm {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
-}
-.at-portfolio-item:hover,
-.at-gallery-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-}
-
-/* Image reveal animation */
-.sec-2-home-5__avatar-sm {
+/* Images - zoom on hover */
+.sec-2-home-5__avatar-sm,
+.at-offcanvas-gallery-img,
+.at-portfolio-item {
   overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s ease;
 }
-.sec-2-home-5__avatar-sm img {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+.sec-2-home-5__avatar-sm:hover,
+.at-offcanvas-gallery-img:hover,
+.at-portfolio-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
-.sec-2-home-5__avatar-sm:hover img {
+.sec-2-home-5__avatar-sm img,
+.at-offcanvas-gallery-img img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sec-2-home-5__avatar-sm:hover img,
+.at-offcanvas-gallery-img:hover img {
   transform: scale(1.1);
 }
 
-/* Form inputs */
+/* Form inputs - glow */
 .sec-4-about-form__input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
@@ -300,11 +146,11 @@ header {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-/* Footer social links */
+/* Social links - lift */
 .at-offcanvas-social__link,
 .at-hero-social a,
 .alt-footer-social-item a {
-  transition: transform 0.3s ease, color 0.3s ease !important;
+  transition: transform 0.3s ease !important;
 }
 .at-offcanvas-social__link:hover,
 .at-hero-social a:hover,
@@ -312,74 +158,70 @@ header {
   transform: translateY(-3px);
 }
 
-/* Footer link hover */
-.at-footer-widget a,
+/* Footer links - slide */
 .alt-footer-link-item a {
-  transition: color 0.3s ease, padding-left 0.3s ease !important;
+  transition: padding-left 0.3s ease, color 0.3s ease !important;
 }
-.at-footer-widget a:hover,
 .alt-footer-link-item a:hover {
-  padding-left: 5px;
+  padding-left: 6px;
 }
 
-/* Back to top button */
+/* Back to top */
 .back-to-top-btn {
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 .back-to-top-btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Search button pulse */
-.at-header-search-btn {
+/* Search & toggle buttons */
+.at-header-search-btn,
+.dark-light-switcher {
   transition: transform 0.3s ease !important;
 }
 .at-header-search-btn:hover {
   transform: scale(1.1);
 }
-
-/* Dark/Light mode toggle */
-.dark-light-switcher {
-  transition: transform 0.3s ease !important;
-}
 .dark-light-switcher:hover {
   transform: scale(1.15);
 }
 
-/* Section titles */
-.at-section-title {
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-/* Scroll rotate element */
+/* Floating icon */
 .scroll-rotate .icon {
   animation: float 4s ease-in-out infinite;
 }
 
-/* --- Smooth Scrolling --- */
+/* Header smooth transition */
+header {
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* --- Page Load Animation --- */
+/* Page load fade */
 body {
-  animation: fadeInUp 0.6s ease forwards;
+  animation: baPageLoad 0.5s ease forwards;
+}
+@keyframes baPageLoad {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* --- Parallax-like subtle effect on sections --- */
-section {
-  transition: transform 0.1s ease;
-}
-
-/* --- Responsive: Reduce motion for users who prefer it --- */
+/* --- Respect reduced motion preference --- */
 @media (prefers-reduced-motion: reduce) {
+  .ba-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 }
